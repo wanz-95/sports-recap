@@ -40,6 +40,30 @@
 
 - [OST.md](./OST.md)：机会解决方案树，论证"为什么先做转折点简报"
 - [PRD.md](./PRD.md)：产品需求文档，把方案变成能交给工程和设计的文档
+- [recap.py](./recap.py)：命令行版简报生成器，读 events.txt 写 recap.md
+- [app.py](./app.py)：Flask 网页版，展示 recap.md 并支持在页面上生成简报
+
+## 使用方式
+
+### 网页版
+
+```bash
+pip install -r requirements.txt
+export DEEPSEEK_API_KEY=sk-xxxx   # 不设置也能用「离线演示」跑通流程
+python app.py                     # 打开 http://127.0.0.1:5000
+```
+
+首页把 recap.md 渲染成 HTML（保留标题、列表、表格）。页面下方有一个输入框，
+粘贴比赛事件后点击「生成简报」，网页会调用 recap.py 生成简报并写回
+events.txt / recap.md，同时显示生成结果与事实校验状态（通过 / 降级 / 失败）。
+
+### 命令行版
+
+```bash
+export DEEPSEEK_API_KEY=sk-xxxx
+python recap.py                   # 读 events.txt，写 recap.md
+python recap.py --mock            # 不联网，用假响应演示校验/重试流程
+```
 
 ## 后续计划
 
